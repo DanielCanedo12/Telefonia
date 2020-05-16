@@ -10,10 +10,5 @@
     <Folder Include="Interfaces\" />
     <Folder Include="Interfaces\Repositories\" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Interfaces\IPlanoRepository.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Interfaces\Repositories\IPlanoRepository.cs" />
-  </ItemGroup>
+  
 </Project>

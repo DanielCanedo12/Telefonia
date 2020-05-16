@@ -9,9 +9,15 @@ namespace TelefoniaWooza.Infra.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Plano> builder)
         {
-			builder.ToTable("Plano");
+			builder.ToTable("Planos");
 
 			builder.HasKey(c => c.Id);
+
+			builder.Property(c => c.Id)
+				.IsRequired()
+				.UseIdentityColumn()
+				.HasColumnName("Id");
+
 
 			builder.Property(c => c.Codigo)
 				.IsRequired()
@@ -36,6 +42,10 @@ namespace TelefoniaWooza.Infra.Data.Mappings
 			builder.Property(c => c.Valor)
 				.IsRequired()
 				.HasColumnName("Valor");
+
+			builder.HasMany(x => x.DDDPlanos)
+			   .WithOne(x => x.Plano)
+			   .HasForeignKey(x => x.PLanoId);
 		}
 	}
     

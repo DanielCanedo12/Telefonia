@@ -11,15 +11,23 @@ namespace TelefoniaWooza.Infra.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<DDD> builder)
         {
-            builder.ToTable("Plano");
+            builder.ToTable("DDDs");
 
             builder.HasKey(c => c.Id);
-            builder.HasIndex(c => c.Sigla);
+            builder.HasIndex(c => c.Sigla).IsUnique();
 
+            builder.Property(c => c.Id)
+                .IsRequired()
+                .UseIdentityColumn()
+                .HasColumnName("Id");
 
             builder.Property(c => c.Sigla)
                 .IsRequired()
                 .HasColumnName("Sigla");
+
+            builder.HasMany(x => x.DDDPlanos)
+                .WithOne(x => x.Ddd)
+                .HasForeignKey(x => x.DDDId);
 
         }
     }
