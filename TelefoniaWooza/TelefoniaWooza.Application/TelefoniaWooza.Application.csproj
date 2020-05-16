@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TelefoniaWooza.Infra.Data\TelefoniaWooza.Infra.Data.csproj" />
+    <ProjectReference Include="..\TelefoniaWooza.Domain\TelefoniaWooza.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="Validators\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.6.2" />
+  </ItemGroup>
+</Project>

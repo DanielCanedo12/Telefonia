@@ -6,6 +6,8 @@ namespace TelefoniaWooza.Infra.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            
+
             migrationBuilder.CreateTable(
                 name: "DDDs",
                 columns: table => new
@@ -98,6 +100,29 @@ namespace TelefoniaWooza.Infra.Data.Migrations
                 table: "Operadoras",
                 column: "Nome",
                 unique: true);
+
+
+            migrationBuilder.InsertData(
+            table: "Operadoras",
+            columns: new[] { "Nome" },
+            values: new object[] { "Claro"});
+
+            migrationBuilder.InsertData(
+            table: "Operadoras",
+            columns: new[] { "Nome" },
+            values: new object[] { "Vivo" });
+
+            migrationBuilder.InsertData(
+            table: "Operadoras",
+            columns: new[] { "Nome" },
+            values: new object[] { "Tim" });
+
+            migrationBuilder.InsertData(
+            table: "Operadoras",
+            columns: new[] { "Nome" },
+            values: new object[] { "Oi" });
+
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

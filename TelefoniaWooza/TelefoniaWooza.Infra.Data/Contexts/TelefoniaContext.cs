@@ -15,7 +15,7 @@ namespace TelefoniaWooza.Infra.Data.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=localhost;Port=1433;Database=TELEFONIA;Uid=sa;Pwd=P@ssw0rd");
+            optionsBuilder.UseSqlServer("Server=localhost;Database=TELEFONIA;Uid=sa;Pwd=P@ssw0rd");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

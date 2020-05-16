@@ -10,6 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using TelefoniaWooza.Application;
+using TelefoniaWooza.Domain.Interfaces.Repositories;
+using TelefoniaWooza.Infra.Data.Contexts;
+using TelefoniaWooza.Infra.Data.Repositories;
 
 namespace TelefoniaWooza.API
 {
@@ -25,6 +29,19 @@ namespace TelefoniaWooza.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<TelefoniaContext>();
+
+            services.AddScoped<PlanoApplication>();
+
+
+
+            services.AddScoped<IPlanoRepository,PlanoRepository>();
+            services.AddScoped<IDDDRepository,DDDRepository>();
+            services.AddScoped<IOperadoraRepository,OperadoraRepository>();
+            services.AddScoped<IDDDPlanoRepository,DDDPlanoRepository>();
+            services.AddScoped<PlanoApplication>();
+
+
             services.AddControllers();
         }
 
