@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentValidation;
 using TelefoniaWooza.Application.Validators;
 using TelefoniaWooza.Domain.Entities;
@@ -13,9 +14,17 @@ namespace TelefoniaWooza.Application
        
 
         private readonly IPlanoRepository _planoRepository;
-        public PlanoApplication(IPlanoRepository planoRepository, TelefoniaContext db) : base(db)
+        private readonly IDDDRepository _dDDRepository;
+        private readonly IDDDPlanoRepository _dDDPlanoRepository;
+        public PlanoApplication(
+            IPlanoRepository planoRepository,
+            IDDDRepository dDDRepository,
+            IDDDPlanoRepository dDDPlanoRepository,
+            TelefoniaContext db) : base(db)
         {
             _planoRepository = planoRepository;
+            _dDDRepository = dDDRepository;
+            _dDDPlanoRepository = dDDPlanoRepository;
         }
 
         public IEnumerable<Plano> GetAll()
@@ -31,7 +40,34 @@ namespace TelefoniaWooza.Application
         public void Add(Plano obj)
         {
             Validate(obj, Activator.CreateInstance<PlanoValidator>());
+
+
+           /* foreach(DDDPlano dDDPlano in obj.DDDPlanos)
+            {
+
+                DDD ddd = _dDDRepository.Get().Where(x => x.Sigla == dDDPlano.Ddd.Sigla).FirstOrDefault();
+                 if(ddd is null)
+                {
+                    ddd = new DDD()
+                    {
+                        Sigla = dDDPlano.Ddd.Sigla
+                    };
+
+                    _dDDRepository.Add(ddd);
+                   
+                }
+
+                dDDPlano.DDDId = ddd.Id;
+                dDDPlano.PLanoId = obj.Id;
+                dDDPlano.Ddd = null;
+                dDDPlano.Plano = null;
+                _dDDPlanoRepository.Add(dDDPlano);
+            }
+
+            obj.DDDPlanos = null;*/
             _planoRepository.Add(obj);
+
+
             Commit();
         }
 

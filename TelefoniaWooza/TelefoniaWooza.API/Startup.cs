@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using TelefoniaWooza.Application;
 using TelefoniaWooza.Domain.Interfaces.Repositories;
 using TelefoniaWooza.Infra.Data.Contexts;
@@ -42,7 +43,10 @@ namespace TelefoniaWooza.API
             services.AddScoped<PlanoApplication>();
 
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            }); ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

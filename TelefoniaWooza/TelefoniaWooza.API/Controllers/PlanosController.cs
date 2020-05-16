@@ -20,7 +20,7 @@ namespace TelefoniaWooza.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Plano item)
+        public IActionResult Post([FromForm] Plano item)
         {
             try
             {
