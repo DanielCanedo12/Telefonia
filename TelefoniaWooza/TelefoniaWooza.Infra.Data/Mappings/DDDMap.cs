@@ -27,7 +27,7 @@ namespace TelefoniaWooza.Infra.Data.Mappings
 
             builder.HasMany(x => x.DDDPlanos)
                 .WithOne(x => x.Ddd)
-                .HasForeignKey(x => x.DDDId);
+                .HasForeignKey(x => x.DDDId).OnDelete(DeleteBehavior.ClientNoAction);
 
         }
     }

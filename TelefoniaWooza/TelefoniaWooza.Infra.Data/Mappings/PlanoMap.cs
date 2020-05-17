@@ -44,8 +44,10 @@ namespace TelefoniaWooza.Infra.Data.Mappings
 				.HasColumnName("Valor");
 
 			builder.HasMany(x => x.DDDPlanos)
+                
 			   .WithOne(x => x.Plano)
-			   .HasForeignKey(x => x.PLanoId);
+                
+			   .HasForeignKey(x => x.PLanoId).OnDelete(DeleteBehavior.Cascade);
 		}
 	}
     
