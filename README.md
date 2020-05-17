@@ -2,7 +2,7 @@
 
 Api que busca, cadastra, deleta e altera planos de Operadoras telefônicas.
 
-#Lista de end point
+# Lista de end point
 
 GET: https://{URL}/api/
   Busca todos os planos disponíveis
@@ -28,7 +28,7 @@ PUT: https://{URL}/api/{id plano}
 DELETE: https://{URL}/api/{id plano}
   Deleta um plano pelo ID
   
-#Exemplos de requisições
+# Exemplos de requisições
 https://www.getpostman.com/collections/3f4aa5f14abdbfe55b43
 
 
