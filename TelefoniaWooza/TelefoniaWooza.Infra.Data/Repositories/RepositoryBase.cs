@@ -23,7 +23,7 @@ namespace TelefoniaWooza.Infra.Data.Repositories
         }
 
 
-        public IEnumerable<TEntity> Get()
+        public virtual IEnumerable<TEntity> Get()
         {
             return Context.Set<TEntity>().ToList();
         }

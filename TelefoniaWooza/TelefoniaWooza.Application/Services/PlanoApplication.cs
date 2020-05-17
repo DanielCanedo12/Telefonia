@@ -4,6 +4,7 @@ using System.Linq;
 using FluentValidation;
 using TelefoniaWooza.Application.Validators;
 using TelefoniaWooza.Domain.Entities;
+using TelefoniaWooza.Domain.Enumerators;
 using TelefoniaWooza.Domain.Interfaces.Repositories;
 using TelefoniaWooza.Infra.Data.Contexts;
 
@@ -16,6 +17,8 @@ namespace TelefoniaWooza.Application
         private readonly IPlanoRepository _planoRepository;
         private readonly IDDDRepository _dDDRepository;
         private readonly IDDDPlanoRepository _dDDPlanoRepository;
+
+
         public PlanoApplication(
             IPlanoRepository planoRepository,
             IDDDRepository dDDRepository,
@@ -29,7 +32,25 @@ namespace TelefoniaWooza.Application
 
         public IEnumerable<Plano> GetAll()
         {
-            return _planoRepository.Get();
+          
+            IEnumerable<Plano> planos =  _planoRepository.Get();
+            return planos;
+        }
+
+        public IEnumerable<Plano> GetByTipo(string ddd , TipoPlano tipo)
+        {
+            IEnumerable<Plano> planos = _planoRepository.GetByTipo(ddd,tipo);
+            return planos;
+        }
+        public IEnumerable<Plano> GetByOperadora(string ddd, string operadora)
+        {
+            IEnumerable<Plano> planos = _planoRepository.GetByOperadora(ddd, operadora);
+            return planos;
+        }
+        public IEnumerable<Plano> GetByPlano(string ddd, string plano)
+        {
+            IEnumerable<Plano> planos = _planoRepository.GetByPlano(ddd, plano);
+            return planos;
         }
 
         public Plano Get(int id)
@@ -41,32 +62,7 @@ namespace TelefoniaWooza.Application
         {
             Validate(obj, Activator.CreateInstance<PlanoValidator>());
 
-
-           /* foreach(DDDPlano dDDPlano in obj.DDDPlanos)
-            {
-
-                DDD ddd = _dDDRepository.Get().Where(x => x.Sigla == dDDPlano.Ddd.Sigla).FirstOrDefault();
-                 if(ddd is null)
-                {
-                    ddd = new DDD()
-                    {
-                        Sigla = dDDPlano.Ddd.Sigla
-                    };
-
-                    _dDDRepository.Add(ddd);
-                   
-                }
-
-                dDDPlano.DDDId = ddd.Id;
-                dDDPlano.PLanoId = obj.Id;
-                dDDPlano.Ddd = null;
-                dDDPlano.Plano = null;
-                _dDDPlanoRepository.Add(dDDPlano);
-            }
-
-            obj.DDDPlanos = null;*/
             _planoRepository.Add(obj);
-
 
             Commit();
         }

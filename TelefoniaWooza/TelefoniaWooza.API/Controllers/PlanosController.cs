@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TelefoniaWooza.Application;
 using TelefoniaWooza.Domain.Entities;
+using TelefoniaWooza.Domain.Enumerators;
 
 namespace TelefoniaWooza.API.Controllers
 {
@@ -51,12 +52,66 @@ namespace TelefoniaWooza.API.Controllers
             }
         }
 
-        /*
-        public IActionResult Put([FromBody] Plano item)
+        [HttpGet("{ddd}/tipo/{tipo}")]
+        public IActionResult GetTipo(string ddd, TipoPlano tipo)
         {
             try
             {
-                service.Put<PlanoValidator>(item);
+                var planos = _planoApplication.GetByTipo(ddd, tipo);
+                if(planos is null)
+                {
+                    return NotFound();
+                }
+                return new ObjectResult(planos);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("{ddd}/operadora/{operadora}")]
+        public IActionResult GetOperadora(string ddd, string operadora)
+        {
+            try
+            {
+                var planos = _planoApplication.GetByOperadora(ddd, operadora);
+                if (planos is null)
+                {
+                    return NotFound();
+                }
+                return new ObjectResult(planos);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("{ddd}/plano/{plano}")]
+        public IActionResult GetPlano(string ddd, string plano)
+        {
+            try
+            {
+                var planos = _planoApplication.GetByPlano(ddd, plano);
+                if (planos is null)
+                {
+                    return NotFound();
+                }
+                return new ObjectResult(planos);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put([FromQuery]int id,[FromBody] Plano item)
+        {
+            try
+            {
+               _planoApplication.Update(item);
 
                 return new ObjectResult(item);
             }
@@ -70,11 +125,12 @@ namespace TelefoniaWooza.API.Controllers
             }
         }
 
+        [HttpDelete]
         public IActionResult Delete(int id)
         {
             try
             {
-                service.Delete(id);
+                _planoApplication.Delete(id);
 
                 return new NoContentResult();
             }
@@ -86,71 +142,8 @@ namespace TelefoniaWooza.API.Controllers
             {
                 return BadRequest(ex);
             }
-        }
-
-       
-        public IActionResult Get(int id)
-        {
-            try
-            {
-                return new ObjectResult(service.Get(id));
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
-
-        public IActionResult GetByOperadora(string operadora)
-        {
-            try
-            {
-                return new ObjectResult(service.SearchByOperadora(operadora));
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
-
-        public IActionResult GetByTipo(string tipo)
-        {
-            try
-            {
-                return new ObjectResult(service.SearchByTipo(tipo));
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
-
-        public IActionResult GetByCodigo(string codigo)
-        {
-            try
-            {
-                return new ObjectResult(service.SearchByCodigo(codigo));
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }*/
+        }      
+        
+        
     }
 }
